@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo Dashboard</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+    <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    crossorigin="anonymous" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/first_app/css/styles.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Dojo Dashboard</h1>
+        </div>
+        <div class="row">
+            <div class="col-3 strong">ID</div>
+            <div class="col-3 strong">Name</div>
+            <div class="col-3 strong">City</div>
+            <div class="col-3 strong">State</div>
+        </div>
+        <div class="row">
+            {% for dojo in dojos %}
+                <div class="col-3 {% if request.session.logged_id == user.id %}strong{% else %}{% endif %}">
+                    <a href="/dojos/{{ dojo.id }}/show">{{dojo.id}} </a>
+                </div>
+                <div class="col-3">{{dojo.name}}</div>
+                <div class="col-3">{{dojo.city}}</div>
+                <div class="col-3 ">{{dojo.state}}</div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <a href="/dojos/create" class="btn btn-primary btn-sm">Create Dojo</a>
+        </div>
+    </div>
+</body>

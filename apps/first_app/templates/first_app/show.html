@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey Results</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+    <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    crossorigin="anonymous" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/first_app/css/styles.css' %}" />
+  </head>
+  <body>     
+    <div class="container">
+        {# include 'nav.html' #}
+        <div class="row">
+            <h1>Results page</h1>
+        </div>
+        <div class="row">
+            <h1>Welcome to {{ name }}</h1>
+        </div>
+        {% for dojo in dojos %}
+            <p class="strong">test loop for users</p>
+        {% endfor %}
+        <div class="row">
+            <div class="col-3">Name:</div> <div class="col-9">{{ name }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">City:</div> <div class="col-9">{{ city }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">State:</div> <div class="col-9">{{ state }}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Description:</div> <div class="col-9">{{ desc }}</div>
+        </div>
+        <div class="row">
+            <p>Here is the dojo(s) information stored in sesssion: {{ request.session.dojo_id }}</p> 
+            <a class="btn btn-primary" href="/dojos/{{ dojo_id }}/edit" role="button">Edit Dojo {{ dojo_id }}</a>
+        </div>
+        {# if request.session.logged_in == True #}
+        <div class="row">
+            <a class="btn btn-primary" href="/dojos/logout" role="button">Clear session</a>
+        </div>
+        {# endif #}
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+# Dojo
+#   Have it include the name of the dojo and the city and state of each dojo
+#       Have the first dojo be "CodingDojo Silicon Valley" in "Mountain View", "CA".
+#       Have the second dojo be "CodingDojo Seattle" in "Seattle", "WA".
+#       Have the third dojo be "CodingDojo New York" in "New York", "NY".
+# Ninja
+#   Have it include first_name, last_name of each ninja in the dojo.
+#   Each dojo can have multiple ninjas and each ninja belongs to a specific dojo.
+
+from apps.first_app.models import *
+
+Dojo.objects.create(name = "CodingDojo Seattle", city="Seattle", state="WA")
+Dojo.objects.create(name = "CodingDojo Silicon Valley", city="Mountain View", state="CA")
+Dojo.objects.create(name = "CodingDojo New York", city="New York", state="NY")
+
+Ninja.objects.create(first_name="Jeremy", last_name="Wilson", dojo=Dojo.objects.get(id=1))
+Ninja.objects.create(first_name="Alex", last_name="Wilson", dojo=Dojo.objects.get(id=1))
+Ninja.objects.create(first_name="Anika", last_name="Wilson", dojo=Dojo.objects.get(id=1))
+
+Ninja.objects.create(first_name="John", last_name="Smith", dojo=Dojo.objects.get(id=1))
+Ninja.objects.create(first_name="Steve", last_name ="Smith", dojo=Dojo.objects.get(id=2))
+Ninja.objects.create(first_name="Mary", last_name ="Smith", dojo=Dojo.objects.get(id=3))
+
+# Start a new app (the name of the app should be 'dojo_ninjas')
+# Create appropriate tables/models that allows you to perform tasks such as
+#   Dojo.objects.first().ninjas.all()
+# result --> 
+# <QuerySet [<Ninja: id: 1, first_name: Jeremy, last_name: Wilson, dojo: CodingDojo Silicon Valley>, <Ninja: id: 4, first_name: Jeremy, last_name: Smith, dojo: CodingDojo Silicon Valley>]>
+
+#   Ninja.objects.first().dojo
+# result -->
+# <Dojo: id: 1, name: CodingDojo Silicon Valley, city: Mountain View, state: CA>
+
+# Using Django Shell:
+#   Create 3 dojos
+#   Delete the three dojos you created (e.g. Dojo.objects.get(id=1).delete())
+Dojo.objects.get(id=1).delete()
+Dojo.objects.get(id=2).delete()
+Dojo.objects.get(id=3).delete()
+
+#   Create 3 additional dojos by using Dojo.objects.create
+Dojo.objects.create(name="CodingDojo Seattle", city="Seattle", state="WA")
+Dojo.objects.create(name="CodingDojo Silicon Valley", city="Mountain View", state="CA")
+Dojo.objects.create(name="CodingDojo New York", city="New York", state="NY")
+
+#   Create 3 ninjas that belong to the first dojo you created.
+#   Create 3 more ninjas and have them belong to the second dojo you created.
+#   Create 3 more ninjas and have them belong to the third dojo you created.
+Ninja.objects.create(first_name="Jeremy", last_name="Wilson", dojo=Dojo.objects.get(id=4))
+Ninja.objects.create(first_name="Alex", last_name="Wilson", dojo=Dojo.objects.get(id=5))
+Ninja.objects.create(first_name="Anika", last_name="Wilson", dojo=Dojo.objects.get(id=6))
+
+Ninja.objects.create(first_name="Jeremy", last_name="Smith", dojo=Dojo.objects.get(id=4))
+Ninja.objects.create(first_name="Alex", last_name="Smith", dojo=Dojo.objects.get(id=5))
+Ninja.objects.create(first_name="Anika", last_name="Smith", dojo=Dojo.objects.get(id=6))
+
+Ninja.objects.create(first_name="Emma", last_name="Stone", dojo=Dojo.objects.get(id=4))
+Ninja.objects.create(first_name="Harry", last_name="Potter", dojo=Dojo.objects.get(id=5))
+Ninja.objects.create(first_name="Ron", last_name="Weasley", dojo=Dojo.objects.get(id=6))
+
+#   Be able to retrieve all ninjas that belong to the first Dojo
+Dojo.objects.first().ninjas.all()
+# result --> 
+# <QuerySet [<Ninja: id: 9, first_name: Jeremy, last_name: Wilson, dojo: CodingDojo Seattle>, <Ninja: id: 12, first_name: Jeremy, last_name: Smith, dojo: CodingDojo Seattle>, <Ninja: id: 15, first_name: Emma, last_name: Stone, dojo: CodingDojo Seattle>]>
+
+#   Be able to retrieve all ninjas that belong to the last Dojo
+Dojo.objects.last().ninjas.all()
+# result --> 
+# <QuerySet [<Ninja: id: 11, first_name: Anika, last_name: Wilson, dojo: CodingDojo New York>, <Ninja: id: 14, first_name: Anika, last_name: Smith, dojo: CodingDojo New York>, <Ninja: id: 17, first_name: Ron, last_name: Weasley, dojo: CodingDojo New York>]>
+
+# Add a new field in the Dojo class (found in your models.py) called 'desc'. Allow 'desc' to hold long text (more than 255 characters).
+desc = models.TextField()
+
+# To forward engineer the change, run the appropriate migration commands.
+python manage.py makemigrations
+python manage.py migrate
+
+# Successfully run the migration files and check the records to make sure the new field was added successfully.
